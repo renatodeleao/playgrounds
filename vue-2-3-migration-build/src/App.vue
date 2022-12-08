@@ -1,31 +1,35 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import AppInputField from './components/AppInputField.vue'
+
+export default {
+  name: 'App',
+  components: {
+    AppInputField
+  },
+  data: () => ({
+    msg: `I am not v-modeled because @vue/compat does not forward $attrs
+    correctly when <component :is="someComp" v-bind="$attrs" />`
+  })
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <AppInputField label="My input" v-model="msg" />
+  {{ msg }}
+  <div class="alert">
+    <small>
+      Go go <code>vite.config.js</code> and remove <code>@vue/compat</code>
+      alias and vue template compiler options from <code>vue()</code> plugin
+      and you'll see that <code>msg</code> above is updated correctly when
+      typing on input.
+    </small>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.alert {
+  background: yellow;
+  padding: 16px;
+  color: black;
 }
 </style>
