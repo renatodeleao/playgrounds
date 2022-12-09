@@ -2,6 +2,11 @@
 import AppInputField from './components/AppInputField.vue'
 
 export default {
+  compatConfig: {
+    MODE: 3,
+    COMPONENT_V_MODEL: false,
+    INSTANCE_LISTENERS: false,
+  },
   name: 'App',
   components: {
     AppInputField

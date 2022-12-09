@@ -1,26 +1,36 @@
 <script>
-import { defineComponent } from "vue";
-import AppInput from './AppInput.vue'
+import { defineComponent, defineAsyncComponent } from "vue";
 
 export default defineComponent({
+  compatConfig: {
+    MODE: 3,
+    COMPONENT_V_MODEL: false,
+    INSTANCE_LISTENERS: false,
+  },
   name: "AppInputField",
   components: {
-    AppInput,
+    AppInput: defineAsyncComponent(() => import('./AppInput.vue')),
   },
   inheritAttrs: false,
   props: {
     label: String,
+  },
+  computed: {
+    curComponent() {
+      // in real-world this would be dynamically set
+      return 'AppInput'
+    }
   }
 });
 </script>
 
 <template>
   <div class="app-input-field">
-    <label class="app-input-field__label" :for="uid">
+    <label class="app-input-field__label">
       {{ label }}
     </label>
     <div class="app-input-field__wrapper">
-      <app-input v-bind="$attrs" />
+      <component :is="curComponent" v-bind="$attrs" />
     </div>
   </div>
 </template>
